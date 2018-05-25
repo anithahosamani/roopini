@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="jambotron">
+
+    <form #frm="ngForm" (ngSubmit)="adduser(frm)">
+      <div class="form-group">
+        <label for="name"> Name: </label>
+        <input type="text" class="form-control " name="name"
+               ngModel
+               #nameUser="ngModel"
+               required
+               pattern="[a-zA-Z][a-zA-Z]+" />
+      </div>
+
+      <div *ngIf="nameUser?.touched" class="alert alert-danger">
+        <div *ngIf="nameUser.errors?.required">
+          Name is required
+        </div>
+
+      </div>
+
+      <div *ngIf="nameUser.errors?.pattern">
+        Name is invalid
+      </div>
+
+      <div class="form-group">
+        <label for="email"> Email: </label>
+        <input type="text" class="form-control" name="email" ngModel
+               #emailUser="ngModel"
+               required
+               pattern="/^\w+([-+.']\ w+)*@\w+([-. ]\w+)*\.\w+([-. ]\w+)*$/" />
+      </div>
+      <div *ngIf="emailUser?.touched" class="alert alert-danger">
+        <div *ngIf="emailUser.errors?.required">
+          Email is required
+        </div>
+
+      </div>
+      <div *ngIf="emailUser.errors?.pattern">
+        Email is invalid
+      </div>
+
+      <div class="form-group">
+        <label for="permission"> Permission: </label>
+        <select class="form-control" aria-hidden="true">
+          <option class="form-group">Administrator</option>
+          <option class="form-group">ProjectManager</option>
+          <option class="form-group">ViewInspections</option>
+          <option class="form-group">PE</option>
+          <option class="form-group">PM</option>
+          <option class="form-group">Follow</option>
+        </select>
+
+       
+      </div>
+
+      <div *ngIf="permissionUser?.touched" class="alert alert-danger">
+        <div *ngIf="permissionUser.errors?.required">
+          permission is required
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group col-md-8">
+        <label for="contact"> Contact: </label>
+        <input type="text" class="form-control" name="conatct"
+               ngModel
+               #contactUser="ngModel"
+               maxlength="10"
+               minlength="10"
+               required
+               pattern="[0-9]*" />
+      </div>
+
+      <div *ngIf="contactUser?.touched" class="alert alert-danger">
+        <div *ngIf="contactUser.errors?.required">
+          Contact is required
+        </div>
+
+      </div>
+
+      <div *ngIf="contactUser.errors?.pattern || contactUser.errors?.minlength">
+        Contact is invalid
+      </div>
+
+
+      <div class="form-group">
+        <label for="jobtitle"> Jobtitle: </label>
+        <input type="text" class="form-control" name="jobtitle"
+               ngModel
+               #jobtitleUser="ngModel"
+               required />
+      </div>
+
+      <div *ngIf="jobtitleUser?.touched" class="alert alert-danger">
+        <div *ngIf="jobtitleUser.errors?.required">
+          Jobtitle is required
+        </div>
+
+      </div>
+      <button type="submit" name="button" class="btn btn-success">Add user</button>
+    </form>
+  </div>
+</div>
+
+
+<ul class="list-group">
+  <li *ngFor="let user of userList" class="list-group-item">
+    {{user.name}}
+  </li>
+</ul>
+
+
+
+
+{{frm.value |json}}
+
+
